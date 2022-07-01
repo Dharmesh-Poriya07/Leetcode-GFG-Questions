@@ -126,7 +126,7 @@ vector<int> Kdistance(struct Node *root, int k)
     
     while(!q.empty()){
         int sz = q.size();
-        if(level==k){
+        if(0==k){
             while(sz--){
                 Node *current = q.front();
                 q.pop();
@@ -141,7 +141,7 @@ vector<int> Kdistance(struct Node *root, int k)
                 if(nullptr!=current->right) q.push(current->right);
             }
         }
-        level++;
+        k--;
     }
     return ans;
 }
