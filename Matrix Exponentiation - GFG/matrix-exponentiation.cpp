@@ -8,7 +8,7 @@ class Solution {
 public:
     
     int FindNthTerm(long long int n) {
-        if(2>n) return 1;
+        // if(2>n) return 1;
         vector<int> bin;
         int temp = n;
         while(0<temp){
