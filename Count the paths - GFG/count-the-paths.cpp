@@ -5,25 +5,21 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 private:
-    int helper(vector<vector<int>> &graph,int s,int d,vector<bool> &visited){
+    int helper(vector<vector<int>> &graph,int s,int d){
         if(s==d) return 1;
-        visited[s] = true;
         int count = 0;
         for(auto adj : graph[s]){
-            // if(false==visited[adj])
-                count += helper(graph,adj,d,visited);
+                count += helper(graph,adj,d);
         }
-        visited[s] = false;
         return count;
     }
 public:
 	int possible_paths(vector<vector<int>>edges, int n, int s, int d){
-	    vector<bool> visited(n,false);
 	    vector<vector<int>> graph(n);
 	    for(auto v : edges){
 	        graph[v[0]].push_back(v[1]);
 	    }
-	    return helper(graph,s,d,visited);
+	    return helper(graph,s,d);
 	}
 };
 
