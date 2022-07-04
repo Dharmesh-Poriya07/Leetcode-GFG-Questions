@@ -44,17 +44,6 @@ class Solution {
         // cout<<bin_a<<" "<<onesb<<endl;
         if(0<onesb){
             reverse(bin_a.begin(),bin_a.end());
-            int j=0;
-            if(bin_a.size()>=countOnes(bin_b)){
-                while(true){
-                    if('0'==bin_a[j]){
-                       bin_a[j] = '1'; 
-                       onesb--;
-                    }
-                    if(0==onesb) break;
-                    j++;
-                }
-            }
             int k=0;
             while(k<bin_a.size()){
                 if(0!=onesb && '0'==bin_a[k]){
