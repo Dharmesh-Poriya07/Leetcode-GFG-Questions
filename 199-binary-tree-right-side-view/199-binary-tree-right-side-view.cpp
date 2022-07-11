@@ -18,15 +18,14 @@ public:
             q.push(root);
         while(!q.empty()){
             int sz = q.size();
-            while(0<sz){
+            while(sz--){
                 TreeNode *current = q.front();
                 q.pop();
-                if(1==sz){
+                if(0==sz){
                     ans.push_back(current->val);
                 }
                 if(nullptr!=current->left) q.push(current->left);
                 if(nullptr!=current->right) q.push(current->right);
-                sz--;
             }
         }
         return ans;
