@@ -7,7 +7,7 @@ private:
         while(low<=high){
             int mid = low + (high-low)/2;
             if(nums[mid]==target){
-                if(0!=mid && nums[mid-1]==target){
+                if(0<mid && nums[mid-1]==target){
                     index = mid-1;
                     high = mid-2; 
                 }else{
@@ -29,7 +29,7 @@ private:
         while(low<=high){
             int mid = low + (high-low)/2;
             if(nums[mid]==target){
-                if(nums.size()-1!=mid && nums[mid+1]==target){
+                if(nums.size()-1>mid && nums[mid+1]==target){
                     index = mid+1;
                     low = mid+2; 
                 }else{
