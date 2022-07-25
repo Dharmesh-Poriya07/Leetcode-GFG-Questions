@@ -7,17 +7,12 @@ private:
         while(low<=high){
             int mid = low + (high-low)/2;
             if(nums[mid]==target){
-                if(0==mid){
-                    index = 0;
-                    break;
+                if(0!=mid && nums[mid-1]==target){
+                    index = mid-1;
+                    high = mid-2; 
                 }else{
-                    if(nums[mid-1]==target){
-                        index = mid-1;
-                        high = mid-2; 
-                    }else{
-                        index = mid;
-                        break;
-                    }
+                    index = mid;
+                    break;
                 }
             }else if(nums[mid]>target){
                 high = mid-1;
@@ -34,17 +29,12 @@ private:
         while(low<=high){
             int mid = low + (high-low)/2;
             if(nums[mid]==target){
-                if(nums.size()-1==mid){
-                    index = nums.size()-1;
-                    break;
+                if(nums.size()-1!=mid && nums[mid+1]==target){
+                    index = mid+1;
+                    low = mid+2; 
                 }else{
-                    if(nums[mid+1]==target){
-                        index = mid+1;
-                        low = mid+2; 
-                    }else{
-                        index = mid;
-                        break;
-                    }
+                    index = mid;
+                    break;
                 }
             }else if(nums[mid]>target){
                 high = mid-1;
