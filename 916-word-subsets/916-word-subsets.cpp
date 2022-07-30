@@ -3,34 +3,24 @@ public:
     vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
         vector<string> ans;
         
-        vector<unordered_map<char,int>> vf;
-        for(string w1 : words1){
-            unordered_map<char,int> mp;
-            for(char ch : w1){
-                mp[ch] ++;
+        vector<vector<int>> vf(words1.size(),vector<int>(26,0));
+        for(int i=0;words1.size()>i;i++){
+            for(char ch : words1[i]){
+                vf[i][ch-'a']++;
             }
-            vf.push_back(mp);
         }
-        // for(int i=0;vf.size()>i;i++){
-        //     unordered_map<char,int> temp;
-        //     for(auto it : vf[i]){
-        //         temp[it.first] += words2.size();
-        //     }
-        //     vf[i] = temp;
-        // }
-        map<char,int> w2f;
+        vector<int> singlewords2(26,0);
         for(string w2 : words2){
-            map<char,int> t;
+            vector<int> freq(26,0);
             for(char ch : w2){
-                t[ch] ++;
-                w2f[ch] = max(w2f[ch],t[ch]);
+                freq[ch-'a'] ++;
+                singlewords2[ch-'a'] = max(singlewords2[ch-'a'],freq[ch-'a']);
             }
         }
-        int i=0;
-        for(auto m : vf){
+        for(int i=0;vf.size()>i;i++){
             bool flag = true;
-            for(auto it : w2f){
-                if(it.second>m[it.first]){
+            for(int j=0;26>j;j++){
+                if(singlewords2[j]>vf[i][j]){
                     flag = false;
                     break;
                 }
@@ -38,7 +28,6 @@ public:
             if(flag){
                 ans.push_back(words1[i]);
             }
-            i++;
         }
         return ans;
     }
