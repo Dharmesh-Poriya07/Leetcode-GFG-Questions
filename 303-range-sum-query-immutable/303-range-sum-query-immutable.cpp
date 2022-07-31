@@ -11,8 +11,7 @@ public:
     }
     
     int sumRange(int left, int right) {
-        int sum = (0==left?presum[right]:presum[right]-presum[left-1]);
-        return sum;
+        return (0==left?presum[right]:presum[right]-presum[left-1]);
     }
 };
 
