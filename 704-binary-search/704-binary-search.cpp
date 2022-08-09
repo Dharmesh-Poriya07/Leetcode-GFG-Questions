@@ -1,21 +1,17 @@
 class Solution {
+private:
+    int bsearch(vector<int> &num,int left,int right,int target){
+        if(left>right) return -1;
+        int mid = left+(right-left)/2;
+        if(num[mid]==target){
+            return mid;
+        }else if(num[mid]<target){
+            return bsearch(num,mid+1,right,target);
+        }
+        return bsearch(num,left,mid-1,target);
+    }
 public:
     int search(vector<int>& nums, int target) {
-        int index = -1;
-        sort(nums.begin(),nums.end());
-        int low = 0;
-        int high = nums.size()-1;
-        while(low<=high){
-            int mid = low + (high-low)/2;
-            if(nums[mid]==target){
-                index = mid;
-                break;
-            }else if(nums[mid]<target){
-                low = mid+1;
-            }else{
-                high = mid-1;
-            }
-        }
-        return index;
+        return bsearch(nums,0,nums.size()-1,target);
     }
 };
