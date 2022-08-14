@@ -6,8 +6,12 @@ class Solution:
         while low<=high:
             mid = low + (high-low)//2;
             if(nums[mid]==target):
-                ans = mid;
-                high = mid-1;
+                if(0<mid and nums[mid-1]==target):
+                    ans = mid-1;
+                    high = mid-2;
+                else:
+                    ans = mid;
+                    break;
             elif(nums[mid]>target) :
                 high = mid-1;
             else:
@@ -23,6 +27,12 @@ class Solution:
         while low<=high:
             mid = low + (high-low)//2;
             if(nums[mid]==target):
+                if(len(nums)-1>mid and nums[mid+1]==target):
+                    ans = mid+1;
+                    high = mid+2;
+                else:
+                    ans = mid;
+                    break;
                 ans = mid;
                 low = mid+1;
             elif(nums[mid]>target):
