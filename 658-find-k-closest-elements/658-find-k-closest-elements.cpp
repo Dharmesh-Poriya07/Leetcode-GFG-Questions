@@ -31,24 +31,19 @@ public:
         int low = lh[0];
         while(0<k){
             if(high==arr.size()){
-                while(0<k){
+                while(k--)
                     ans.push_back(arr[low--]);
-                    k--;
-                }
                 break;
             }
             if(low==-1){
-                while(0<k){
+                while(k--)
                     ans.push_back(arr[high++]);
-                    k--;
-                }
                 break;
             }
-            if(x-arr[low]<=arr[high]-x){
+            if(x-arr[low]<=arr[high]-x)
                 ans.push_back(arr[low--]);
-            }else{
+            else
                 ans.push_back(arr[high++]);
-            }
             k--;
         }
         sort(ans.begin(),ans.end());
