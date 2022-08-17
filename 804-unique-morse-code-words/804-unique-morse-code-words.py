@@ -5,7 +5,8 @@ class Solution:
         for word in words:
             morse_code = []
             for ch in word:
-                morse_code.append(morse[ord(ch)-ord('a')]);
+                for c in morse[ord(ch)-ord('a')]:
+                    morse_code.append(c);
             s.add(''.join(morse_code));
             
         return len(s);
