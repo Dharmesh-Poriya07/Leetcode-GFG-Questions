@@ -10,7 +10,7 @@ public:
         // -2^31 = -2147483648
         // 2^31-1 = 2147483647
         
-        long long int ans = 0;
+        long int ans = 0;
         string digits = "";
         bool isNegative = false;
         int size = s.size();
@@ -44,11 +44,11 @@ public:
         if(isNegative)
             ans *= -1;
         
-        if((long long)INT_MAX<ans){
+        if((long)INT_MAX<ans){
             return INT_MAX;
         }
-        if((long long)INT_MIN>ans)
+        if((long)INT_MIN>ans)
             return INT_MIN;
-        return (int)ans;
+        return ans;
     }
 };
