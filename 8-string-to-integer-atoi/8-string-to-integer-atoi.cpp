@@ -1,4 +1,10 @@
 class Solution {
+private:
+    void getTheDigits(string &s,string &digits,int i){
+        int size = s.size();
+        while(i<size && '0'<=s[i] && '9'>=s[i])
+            digits.push_back(s[i++]);
+    }
 public:
     int myAtoi(string s) {
         // -2^31 = -2147483648
@@ -9,34 +15,21 @@ public:
         bool isNegative = false;
         int size = s.size();
         for(int i=0;i<size;i++){
-            if(' '==s[i]){
+            if(' '==s[i])
                 continue;
-            }else if('-'==s[i]){
-                if(size-1==i || size-1>i && '0'>s[i+1] && '9'<s[i+1]){
-                    return 0;
-                }else{
-                    isNegative = true;
+            else if('-'==s[i] || '+'==s[i]){
+                if(size-1==i || size-1>i && '0'>s[i+1] && '9'<s[i+1]) return 0;
+                else{
+                    isNegative = ('-'==s[i]?true:false);
                     i++;
-                    while(i<size && '0'<=s[i] && '9'>=s[i])
-                        digits.push_back(s[i++]);
-                    break;
-                }
-            }else if('+'==s[i]){
-                if(size-1>i && '0'>s[i+1] && '9'<s[i+1]){
-                    return 0;
-                }else{
-                    i++;
-                    while(i<size && '0'<=s[i] && '9'>=s[i])
-                        digits.push_back(s[i++]);
+                    getTheDigits(s,digits,i);
                     break;
                 }
             }else if('0'<=s[i] && '9'>=s[i]){
-                while(i<size && '0'<=s[i] && '9'>=s[i])
-                    digits.push_back(s[i++]);
+                getTheDigits(s,digits,i);
                 break;
-            }else{
+            }else
                 return 0;
-            }
         }
         if(isNegative && '0'!=digits[0] && 11<digits.size())
             return INT_MIN;
@@ -47,9 +40,10 @@ public:
             ans *= 10;
             ans += (d-'0');
         }
-        if(isNegative){
+        
+        if(isNegative)
             ans *= -1;
-        }
+        
         if((long long)INT_MAX<ans){
             return INT_MAX;
         }
