@@ -1,16 +1,16 @@
 class Solution {
 public:
-    string addStrings(string x, string y) {
+    string addStrings(string num1, string num2) {
         string sum = "";
-        int endx = x.size()-1,endy = y.size()-1;
+        int endnum1 = num1.size()-1,endnum2 = num2.size()-1;
         int carry = 0;
-        while(0<=endx || 0<=endy){
+        while(0<=endnum1 || 0<=endnum2){
             int digit = carry;
-            if(0<=endx)
-                digit += (x[endx--]-'0');
+            if(0<=endnum1)
+                digit += (num1[endnum1--]-'0');
             
-            if(0<=endy)
-                digit += (y[endy--]-'0');
+            if(0<=endnum2)
+                digit += (num2[endnum2--]-'0');
             
             carry = digit/10;
             sum.push_back('0'+digit%10);
