@@ -1,17 +1,18 @@
 class Solution {
+private:
+    static bool myCmp(vector<int> &a,vector<int> &b){
+        return a[0]<b[0];
+    }
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
-        int stops = 0;
-        int currentFuel = startFuel;
+        int stops = 0, currentFuel = startFuel;
         priority_queue<pair<int,int>> hypo;
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        for(auto st : stations){
-            pq.push({st[0],st[1]});
-        }
+        sort(stations.begin(),stations.end(),myCmp);
+        int i = 0;
         while(currentFuel<target){
-            while(!pq.empty() && pq.top().first<=currentFuel){
-                hypo.push({pq.top().second,pq.top().first});
-                pq.pop();
+            while(stations.size()>i && stations[i][0]<=currentFuel){
+                hypo.push({stations[i][1],stations[i][0]});
+                i++;
             }
             if(currentFuel<target && !hypo.empty()){
                 currentFuel += hypo.top().first;
@@ -21,7 +22,6 @@ public:
                 stops = -1;
                 break;
             }
-            // cout<<currentFuel<<endl;
         }
         return stops;
     }
