@@ -19,7 +19,8 @@ public:
         string left="",right="";
         if(nullptr!=root->left){
             left.push_back('(');
-            left += tree2str(root->left);
+            for(char ch : tree2str(root->left))
+                left.push_back(ch);
             left.push_back(')');
         }else if(nullptr!=root->right){
             left.push_back('(');
@@ -28,10 +29,16 @@ public:
         
         if(nullptr!=root->right){
             right.push_back('(');
-            right += tree2str(root->right);
+            for(char ch : tree2str(root->right))
+                right.push_back(ch);
             right.push_back(')');
         }
-        ans += left+right;
+        
+        for(char ch : left)
+            ans.push_back(ch);
+        for(char ch : right)
+            ans.push_back(ch);
+        
         return ans;
     }
 };
