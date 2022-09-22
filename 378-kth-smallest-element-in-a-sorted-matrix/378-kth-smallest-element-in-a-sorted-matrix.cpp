@@ -2,14 +2,16 @@ class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
         map<int,int> freq;
-        for(auto m : matrix)
-            for(int ele : m)
-                freq[ele]++;
-        int temp = 0;
+        int temp_count = 0;
         int ans = -1;
+        for(auto row : matrix){
+            for(auto col : row){
+                freq[col]++;
+            }
+        }
         for(auto it : freq){
-            temp += it.second;
-            if(temp>=k){
+            temp_count += it.second;
+            if(temp_count >= k){
                 ans = it.first;
                 break;
             }
