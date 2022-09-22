@@ -11,13 +11,11 @@ public:
         int l=0;
         int r=0;
         while(s.size()>r){
-            if(' '!=s[r]){
-                r++;
-                continue;
+            if(' '==s[r]){
+                reverseS(s,l,r-1);
+                l = r+1;
             }
-            reverseS(s,l,r-1);
             r++;
-            l = r;
         }
         reverseS(s,l,r-1);
         return s;
