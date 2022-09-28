@@ -17,26 +17,19 @@ public:
         n--;
         while(n--){
             fast = fast->next;
-            if(fast == NULL){
-               return head;
-           }
+            if(fast == NULL) return head; 
         }
         while(fast->next != NULL){
             fast = fast->next;
-            if(slow == NULL){
-                slow = head;
-            }else{
-                slow = slow->next;
-            }
+            if(slow == NULL) slow = head;
+            else slow = slow->next;
         }
         if(slow == NULL){
             ListNode *temp = head;
             head = head->next;
-            delete temp;
         }else{
             ListNode *temp = slow->next;
             slow->next = temp->next;
-            delete temp;
         }
         return head;
     }
