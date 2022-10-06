@@ -1,6 +1,6 @@
 class TimeMap {
 private:
-    map<string,map<int,string>> m;
+    unordered_map<string,map<int,string>> m;
 public:
     TimeMap() {
         
@@ -8,7 +8,6 @@ public:
     
     void set(string key, string value, int timestamp) {
         m[key].insert(make_pair(timestamp,value));
-        // cout<<m[key][timestamp+1]<<" ";
     }
     
     string get(string key, int timestamp) {
