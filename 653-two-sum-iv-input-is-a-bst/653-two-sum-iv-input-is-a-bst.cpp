@@ -11,7 +11,7 @@
  */
 class Solution {
 private:
-    map<int,int> m;
+    unordered_map<int,int> m;
 public:
     bool findTarget(TreeNode* root, int k) {
         if(nullptr == root)
