@@ -4,11 +4,8 @@ public:
         sort(nums.begin(),nums.end(),greater<int>());
         int ans = 0;
         for(int i=2;nums.size()>i;i++){
-            int a = nums[i];
-            int b = nums[i-1];
-            int c = nums[i-2];
-            if(a+b>c and b+c>a and a+c>b){
-                ans = a+b+c;
+            if(nums[i]+nums[i-1]>nums[i-2] and nums[i-1]+nums[i-2]>nums[i] and nums[i]+nums[i-2]>nums[i-1]){
+                ans = nums[i]+nums[i-1]+nums[i-2];
                 break;
             }
         }
