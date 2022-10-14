@@ -13,14 +13,14 @@ public:
         pq.insert(0);
         vector<vector<int>> ans;
         for(auto b : buildings){
-            points.push_back({b[0],0-b[2]});
+            points.push_back({b[0],-b[2]});
             points.push_back({b[1],b[2]});
         }
         sort(points.begin(),points.end(),myCmp);
         
         for(int i=0;points.size()>i;i++){
             if(0 > points[i].second){
-                pq.insert(0-points[i].second);
+                pq.insert(-points[i].second);
                 auto it = pq.rbegin();
                 if(ch < *it){
                     ch = *it;
