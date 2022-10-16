@@ -12,25 +12,23 @@
 class Solution {
 private:
     map<int,map<int,multiset<int>>> mp;
-    void helper(TreeNode *root,int ind,int level){
-        if(nullptr==root) return;
-        mp[ind][level].insert(root->val);
-        helper(root->left,ind-1,level+1);
-        helper(root->right,ind+1,level+1);
+    void dfs(TreeNode *root,int x,int level){
+        if(nullptr==root) 
+            return;
+        mp[x][level].insert(root->val);
+        dfs(root->left,x-1,level+1);
+        dfs(root->right,x+1,level+1);
     }
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        vector<vector<int>> vt;
-        
-        helper(root,0,0);
-        
-        for(auto i : mp){
-            vector<int> temp;
-            for(auto j : i.second){
-                for(auto k : j.second)
-                    temp.push_back(k);
-            }
-            vt.push_back(temp);
+        dfs(root,0,0);
+        vector<vector<int>> vt(mp.size());
+        int i=0;
+        for(auto x : mp){
+            for(auto y : x.second)
+                for(auto val : y.second)
+                    vt[i].push_back(val);
+            i++;
         }
         return vt;
     }
