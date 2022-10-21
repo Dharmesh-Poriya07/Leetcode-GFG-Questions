@@ -12,12 +12,14 @@
 class Solution {
 public:
     int goodNodes(TreeNode* root,int mx=INT_MIN) {
-        if(nullptr==root) return 0;
+        if(nullptr==root)
+            return 0;
         int count = 0;
-        if(root->val==max(mx,root->val))
+        int cmx = max(mx,root->val); // current max
+        if(root->val==cmx)
             count ++;
-        count += goodNodes(root->left,max(mx,root->val));
-        count += goodNodes(root->right,max(mx,root->val));
+        count += goodNodes(root->left,cmx);
+        count += goodNodes(root->right,cmx);
         return count;
     }
 };
