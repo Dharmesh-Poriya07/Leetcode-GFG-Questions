@@ -2,9 +2,9 @@ class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
         vector<int> ans;
-        map<int,int> mp;
+        vector<int> mp(nums.size()+1,0);
         for(int n : nums){
-            if(1==mp[n]){
+            if(0<mp[n]){
                 ans.push_back(n);
             }
             mp[n]++;
