@@ -7,13 +7,11 @@ public:
         for(int i=0;i<nums.size();i++){
             sum += nums[i];
             int rem = sum%k;
-            if(remainder.end()!=remainder.find(rem)){
-                if(1<i-remainder[rem]){
-                    return true; 
-                }
-            } 
-            else
+            if(remainder.end()==remainder.find(rem))
                 remainder[rem] = i;
+            else if(1<i-remainder[rem])
+                return true;
+                
         }
         return false;
     }
