@@ -22,14 +22,12 @@ public:
                 
                 for(int i=0;i<8;i++){
                     string temp = current;
-                    temp[i]='A';
-                    if(st.count(temp)) q.push(temp);
-                    temp[i]='C';
-                    if(st.count(temp)) q.push(temp);
-                    temp[i]='G';
-                    if(st.count(temp)) q.push(temp);
-                    temp[i]='T';
-                    if(st.count(temp)) q.push(temp);
+                    for(char ch : "ACTG"){
+                        temp[i]=ch;
+                        if(st.count(temp)) 
+                            q.push(temp);
+                    }
+                    
                 }
             }
             steps++;
