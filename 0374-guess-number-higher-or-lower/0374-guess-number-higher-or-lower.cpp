@@ -15,16 +15,15 @@ public:
         int ans;
         
         while(true){
-            int r = rand();
-            int guessNum = (r%(high-low+1))+low;
-            int result = guess(guessNum);
+            int mid = low + (high-low)/2;
+            int result = guess(mid);
             if(0==result){
-                ans = guessNum;
+                ans = mid;
                 break;
             }else if(-1==result){
-                high = guessNum-1;
+                high = mid-1;
             }else{
-                low = guessNum+1;
+                low = mid+1;
             }
         }
         return ans;
