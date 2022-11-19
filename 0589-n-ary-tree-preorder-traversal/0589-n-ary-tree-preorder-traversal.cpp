@@ -19,18 +19,21 @@ public:
 */
 
 class Solution {
-public:
-    vector<int> preorder(Node* root) {
-        if(nullptr == root) return {};
+private:
+    vector<int> ans;
+    void helper(Node *root){
+        if(nullptr == root) return;
         
-        vector<int> ans;
         ans.push_back(root->val);
         
         for(Node *child : root->children){
-            vector<int> subt = preorder(child);
-            for(int s : subt)
-                ans.push_back(s);
+            helper(child);
         }
+    }
+public:
+    vector<int> preorder(Node* root) {
+        ans = vector<int>();
+        helper(root);
         return ans;
     }
 };
