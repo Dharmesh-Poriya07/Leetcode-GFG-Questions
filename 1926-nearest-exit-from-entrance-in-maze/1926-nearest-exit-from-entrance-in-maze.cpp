@@ -6,7 +6,7 @@ public:
         int col = maze[0].size();
         vector<vector<int>> dir = {{-1,0},{0,1},{1,0},{0,-1}};
         maze[entrance[0]][entrance[1]] = '+';
-        q.push({entrance[0],entrance[1],1});
+        q.push({entrance[0],entrance[1]});
         int level = 0;
         while(!q.empty()){
             int sz = q.size();
@@ -20,7 +20,7 @@ public:
                     if(0<=r and 0<=c and row>r and col>c){
                         if('+'!=maze[r][c]){
                             if(0==r or 0==c or row-1==r or col-1==c) return level;
-                            q.push({r,c,pos[2]+1});
+                            q.push({r,c});
                             maze[r][c] = '+';
                         }
                     }
