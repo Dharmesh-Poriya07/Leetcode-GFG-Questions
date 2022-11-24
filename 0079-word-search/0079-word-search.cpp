@@ -1,6 +1,6 @@
 class Solution {
 private:
-    bool dfs(vector<vector<char>>& board, string word,int r,int c,int ind){
+    bool dfs(vector<vector<char>>& board, string &word,int r,int c,int ind){
         if(ind == word.size()) return true;
         
         if(-1==r or -1==c or board.size()==r or board[0].size()==c or '.'==board[r][c] or (board[r][c] != word[ind])) return false;
