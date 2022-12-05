@@ -19,22 +19,19 @@ public:
             q.push(root);
         while(!q.empty()){
             int size = q.size();
-            vector<int> level(size);
+            lot.push_back(vector<int>(size));
             int i=0;
             while(size--){
                 TreeNode *current = q.front();
                 q.pop();
-                if(flag)
-                    level[size] = current->val;
-                else
-                    level[i++] = current->val;
+                if(flag) lot.back()[size] = current->val;
+                else lot.back()[i++] = current->val;
                 if(nullptr!=current->left)
                     q.push(current->left);
                 if(nullptr!=current->right)
                     q.push(current->right);
             }
             flag = !flag;
-            lot.push_back(level);
         }
         return lot;
     }
