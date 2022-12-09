@@ -1,9 +1,9 @@
 # Diagonal Traversal of Binary Tree
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a Binary Tree, print the <strong>diagonal traversal</strong> of the binary tree.</span></p>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a Binary Tree, print the <strong>diagonal traversal</strong> of the binary tree.</span></p>
 
-<p><span style="font-size:18px">Consider lines of slope -1 passing between nodes. Given a Binary Tree, print all diagonal elements in a binary tree belonging to same line.</span></p>
+<p><span style="font-size:18px">Consider lines of slope -1 passing between nodes. Given a Binary Tree, print all diagonal elements in a binary tree belonging to same line.<br>
+If the diagonal element are present in two different subtress then left subtree diagonal element should be taken first and then right subtree.&nbsp;</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
 
@@ -17,7 +17,7 @@
 &nbsp;       4     7 13
 <strong>Output</strong> : 8 10 14 3 6 7 13 1 4
 <strong>Explanation</strong>:
-<a href="http://d1hyf4ir1gqw6c.cloudfront.net//wp-content/uploads/unnamed1.png" target="_blank"><img alt="unnamed" class="alignnone size-full wp-image-137695 img-responsive" src="https://contribute.geeksforgeeks.org/wp-content/uploads/diagonal.jpg" style="height:264px; width:406px">
+<a href="http://d1hyf4ir1gqw6c.cloudfront.net//wp-content/uploads/unnamed1.png"><img alt="unnamed" class="alignnone size-full wp-image-137695" src="https://contribute.geeksforgeeks.org/wp-content/uploads/diagonal.jpg" style="height:264px; width:406px">
 </a>Diagonal Traversal of binary tree : 
  8 10 14 3 6 7 13 1 4</span>
 </pre>
@@ -33,5 +33,4 @@ You don't need to read input or print anything. The task is to complete the func
 1 &lt;= Number of nodes&lt;= 10<sup>5</sup><br>
 1 &lt;= Data of a node&lt;= 10<sup>5</sup></span><br>
 &nbsp;</p>
- <p></p>
-            </div>
+</div>
