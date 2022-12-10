@@ -16,20 +16,19 @@ private:
         return sumOfNodes(root->left)+sumOfNodes(root->right)+root->val;
     }
     long long ans;
-    int helper(TreeNode *root,long long tsum){
+    long long total_sum;
+    int helper(TreeNode *root){
         if(!root) return 0;
-        long long left = helper(root->left,tsum);
-        long long right = helper(root->right,tsum);
-        long long t1 = (tsum-left)*left;
-        long long t2 = (tsum-right)*right;
-        ans = max(ans,max(t1,t2));
+        long long left = helper(root->left);
+        long long right = helper(root->right);
+        ans = max(ans,max((total_sum-left)*left,(total_sum-right)*right));
         return left+right+root->val;
     }
 public:
     int maxProduct(TreeNode* root) {
         ans = 0;
-        long long total_sum = sumOfNodes(root);
-        int temp = helper(root,total_sum);
+        total_sum = sumOfNodes(root);
+        int temp = helper(root);
         return ans%1000000007;
     }
 };
