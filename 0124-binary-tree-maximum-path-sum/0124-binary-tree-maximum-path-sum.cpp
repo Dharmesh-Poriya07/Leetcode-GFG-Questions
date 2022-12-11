@@ -16,13 +16,14 @@ private:
         if(!root) return 0;
         int left = helper(root->left);
         int right = helper(root->right);
-        int temp = max(root->val,max(root->val+left,root->val+right));
-        mxans = max(mxans,max(root->val+left+right,temp));
-        return temp;
+        int subtreepath = root->val+left+right;
+        int mxpath = max(root->val,root->val+max(left,right));
+        mxans = max(mxans,max(subtreepath,mxpath));
+        return mxpath;
     }
 public:
     int maxPathSum(TreeNode* root) {
-        mxans = INT_MIN;
+        mxans = root->val;
         helper(root);
         return mxans;
     }
