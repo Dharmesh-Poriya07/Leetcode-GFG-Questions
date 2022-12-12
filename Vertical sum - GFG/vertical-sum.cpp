@@ -91,27 +91,23 @@ Node *left,*right;
 };
 */
 class Solution{
+    unordered_map<int,int> sums;
+    int leftPoint,rightPoint;
+    void helper(Node *root,int pos){
+        if(!root) return;
+        leftPoint = min(leftPoint,pos);
+        rightPoint = max(rightPoint,pos);
+        sums[pos] += root->data;
+        helper(root->left,pos-1);
+        helper(root->right,pos+1);
+        return;
+    }
   public:
     vector <int> verticalSum(Node *root) {
-        unordered_map<int,int> sums;
-        int leftPoint=0,rightPoint=0;
+        
+        leftPoint=rightPoint=0;
         vector<int> ans;
-        queue<pair<Node *,int>> q;
-        if(root) q.push({root,0});
-        while(!q.empty()){
-            Node *current = q.front().first;
-            int x = q.front().second;
-            q.pop();
-            sums[x] += current->data;
-            if(current->left){
-                leftPoint = min(leftPoint,x-1);
-                q.push({current->left,x-1});
-            }
-            if(current->right){
-                rightPoint = max(rightPoint,x+1);
-                q.push({current->right,x+1});
-            }
-        }
+        helper(root,0);
         for(int i=leftPoint;i<=rightPoint;i++){
             ans.push_back(sums[i]);
         }
