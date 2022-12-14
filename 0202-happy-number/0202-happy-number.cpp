@@ -10,9 +10,9 @@ int digitSquare(int n){
 }
 public:
     bool isHappy(int n) {
-        unordered_map<int,int> m;
-        while(0==m[n]){
-            m[n]++;
+        unordered_set<int> m;
+        while(m.end()==m.find(n)){
+            m.insert(n);
             n = digitSquare(n);
             if(1==n) return true;
         }
