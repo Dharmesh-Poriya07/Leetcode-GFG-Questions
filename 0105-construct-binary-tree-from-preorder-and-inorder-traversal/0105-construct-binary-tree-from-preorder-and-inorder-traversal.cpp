@@ -12,17 +12,12 @@
 class Solution {
 private:
     int preIndex;
+    unordered_map<int,int> m;
     TreeNode *treeFromPreAndIn(vector<int>& preorder, vector<int>& inorder,int istart,int iend){
         if(istart > iend) return nullptr;
         
         TreeNode *root = new TreeNode(preorder[preIndex++]);
-        int inindex;
-        for(int i=istart;i<=iend;i++){
-            if(inorder[i]==preorder[preIndex-1]){
-                inindex = i;
-                break;
-            }
-        }
+        int inindex = m[preorder[preIndex-1]];
         root->left = treeFromPreAndIn(preorder,inorder,istart,inindex-1);
         root->right = treeFromPreAndIn(preorder,inorder,inindex+1,iend);
         return root;
@@ -30,6 +25,8 @@ private:
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         preIndex = 0;
+        for(int i=0;i<inorder.size();i++)
+            m[inorder[i]] = i;
         return treeFromPreAndIn(preorder,inorder,0,inorder.size()-1);
     }
 };
