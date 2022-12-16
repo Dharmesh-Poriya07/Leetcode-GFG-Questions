@@ -58,7 +58,6 @@ struct Node
 };
 */
 unordered_map<int,int> m;
-unordered_map<int,int> indexs;
 Node *helper(int inorder[],int levelorder[],int n,int istart,int iend){
     if(istart>iend) return NULL;
     
@@ -79,7 +78,6 @@ Node* buildTree(int inorder[], int levelorder[], int iStart, int iEnd,int n)
 {
     for(int i=0;i<n;i++){
       m[levelorder[i]] = i;
-      indexs[inorder[i]] = i;
     }
         
     return helper(inorder,levelorder,n,0,n-1);
