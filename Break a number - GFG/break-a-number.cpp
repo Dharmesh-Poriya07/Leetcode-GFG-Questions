@@ -11,7 +11,7 @@ public:
     int waysToBreakNumber(int N){
         long long int m = 1000000007;
         N++;
-        return (((N%m)*((N+1)%m))/2)%m;
+        return (((long(N))*(N+1))/2)%m;
     }
 };
 
