@@ -1,13 +1,11 @@
 class Solution {
     int dfs(vector<vector<int>>& rooms,vector<bool> &visited,int s){
         visited[s] = true;
-        int count = 1;
-        for(auto key : rooms[s]){
-            if(!visited[key]){
-                count += dfs(rooms,visited,key);
-            }
-        }
-        return count;
+        int openRooms = 1;
+        for(auto key : rooms[s])
+            if(!visited[key])
+                openRooms += dfs(rooms,visited,key);
+        return openRooms;
     }
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
