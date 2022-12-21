@@ -1,8 +1,18 @@
 class Solution {
-    bool dfs(vector<vector<int>> &graph,vector<char> &colors,int src,char cc){
+    bool bfs(vector<vector<int>> &graph,vector<char> &colors,int src,char cc){
         colors[src] = cc;
-        for(auto adj : graph[src]){
-            if(cc==colors[adj] or ('0'==colors[adj] and !dfs(graph,colors,adj,('B'==cc?'R':'B')))) return false;
+        queue<pair<int,char>> q;
+        q.push({src,cc});
+        while(!q.empty()){
+            auto current = q.front();
+            q.pop();
+            for(auto adj : graph[current.first]){
+                if(current.second == colors[adj]) return false;
+                if('0' == colors[adj]){
+                    colors[adj] = ('B'==current.second?'R':'B');
+                    q.push({adj,colors[adj]});
+                } 
+            }
         }
         return true;
     }
@@ -16,7 +26,7 @@ public:
         }
         for(int i=1;i<n+1;i++){
             if('0'==colors[i])
-                if(!dfs(graph,colors,i,'B'))
+                if(!bfs(graph,colors,i,'B'))
                     return false;
         }
         return true;
