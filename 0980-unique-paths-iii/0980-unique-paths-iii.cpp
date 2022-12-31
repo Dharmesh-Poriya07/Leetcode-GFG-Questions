@@ -20,13 +20,11 @@ public:
     int uniquePathsIII(vector<vector<int>>& grid) {
         paths = 0;
         int zeros = 0;
-        int sx,sy,ex,ey;
+        int sx,sy;
         for(int i=0;i<grid.size();i++){
             for(int j=0;j<grid[0].size();j++){
                 if(1==grid[i][j]){
                     sx = i,sy=j;
-                }else if(2==grid[i][j]){
-                    ex=i,ey=j;
                 }else if(0==grid[i][j]){
                     zeros++;
                 }
