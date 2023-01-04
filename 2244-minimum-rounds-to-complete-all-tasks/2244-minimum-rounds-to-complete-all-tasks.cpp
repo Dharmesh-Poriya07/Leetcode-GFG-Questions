@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minimumRounds(vector<int>& tasks) {
-        map<int,int> freq;
+        unordered_map<int,int> freq;
         for(int t : tasks){
             freq[t]++;
         }
@@ -12,7 +12,7 @@ public:
                 ans ++;
                 continue;
             }
-            if(1<=it.second%3) ans++;
+            if(it.second%3) ans++;
             ans += (it.second/3);
         }
         return ans;
