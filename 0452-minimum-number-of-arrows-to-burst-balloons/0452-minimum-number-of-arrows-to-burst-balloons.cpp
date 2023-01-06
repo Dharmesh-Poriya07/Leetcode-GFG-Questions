@@ -1,15 +1,22 @@
 class Solution {
-    bool static myCmp(vector<int>& a, vector<int>& b) {return a[1] < b[1];}
+private:
+    static bool myCmp(vector<int> &a,vector<int> &b){
+        return a[1]<b[1];
+    }
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
-        sort(points.begin(), points.end(), myCmp);
-        int ans = 0, arrow = 0;
-        for (int i = 0; i < points.size(); i ++) {
-            if (ans == 0 or points[i][0] > arrow) {
+        sort(points.begin(),points.end(),myCmp);
+        int ans = 0;
+        int pmn = points[0][1];
+        for(int i=1;i<points.size();i++){
+            if(pmn>=points[i][0]){
+                pmn = min(pmn,points[i][1]);
+            }else{
+                pmn = points[i][1];
                 ans ++;
-                arrow = points[i][1];
             }
         }
+        ans++;
         return ans;
     }
 };
