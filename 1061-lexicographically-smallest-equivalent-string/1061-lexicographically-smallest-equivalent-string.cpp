@@ -23,7 +23,7 @@ class DSUByRank{
         if(x_root == y_root) return;
         if(rank[x_root]<rank[y_root]){
             parent[y_root] = x_root;
-        }else{
+        }else if(rank[x_root]>rank[y_root]){
             parent[x_root] = y_root;
         }
     }
