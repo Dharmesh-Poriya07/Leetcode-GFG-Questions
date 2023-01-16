@@ -11,22 +11,27 @@
  */
 class Solution {
 private:
-    int path(TreeNode *root,long csum,int targetsum){
-        if(!root) return 0;
-        int ans = 0;
-        csum += root->val;
-        if(csum==targetsum) ans++;
-        ans += path(root->left,csum,targetsum);
-        ans += path(root->right,csum,targetsum);
-        return ans;
-    }
-    int helper(TreeNode *root,int targetsum){
-        if(!root) return 0;
+    int total_paths = 0;
+    vector<int> paths;
+    void path(TreeNode *root,long csum,int targetsum){
+        if(!root) return;
         
-        return path(root,0,targetsum)+helper(root->left,targetsum)+helper(root->right,targetsum);
+        paths.push_back(root->val);
+        path(root->left,csum,targetsum);
+        path(root->right,csum,targetsum);
+        long sum = 0;
+        for (int j = paths.size() - 1; j >= 0; j--) {
+            sum += paths[j];
+            if (sum == (long)targetsum)
+                total_paths++;
+        }
+        paths.pop_back();
     }
 public:
     int pathSum(TreeNode* root, int targetSum) {
-        return helper(root,targetSum);
+        if(!root) return 0;
+        paths = vector<int>();
+        path(root,0,targetSum);
+        return total_paths;
     }
 };
