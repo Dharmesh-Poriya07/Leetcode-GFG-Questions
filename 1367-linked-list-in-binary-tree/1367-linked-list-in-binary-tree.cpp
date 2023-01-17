@@ -21,7 +21,6 @@
  */
 class Solution {
 private:
-    ListNode *copyHead;
     vector<int> pathnodes;
     vector<int> listnodes;
     void ln(ListNode *head){
@@ -33,24 +32,22 @@ private:
     bool dfs(TreeNode *root){
         if(!root) return false;
         pathnodes.push_back(root->val);
-        bool left = dfs(root->left);
-        bool right = dfs(root->right);
         
+        bool ans = dfs(root->left) or dfs(root->right);
         int i= listnodes.size()-1;
-        for(int j=pathnodes.size()-1;0<=i and j>=0;i--,j--){
+        for(int j=pathnodes.size()-1;0<=i and 0<=j;j--,i--)
             if(pathnodes[j]!=listnodes[i])
                 break;
-        }
+        
+        if(-1==i) return true;
         pathnodes.pop_back();
-        if(i==-1) return true;
-        return left or right;
+        return ans;
     }
 public:
     bool isSubPath(ListNode* head, TreeNode* root) {
         pathnodes = vector<int>();
         listnodes = vector<int>();
         ln(head);
-        copyHead = head;
         return dfs(root);
     }
 };
