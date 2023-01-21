@@ -2,34 +2,46 @@ class Node{
     public:
     int val;
     Node *next;
+    Node *prev;
     Node(int val){
         this->val = val;
-        this->next = nullptr;
+        this->next = this->prev = nullptr;
     }
 };
 class MyLinkedList {
 private:
-    Node *head;
+    Node *head,*tail;
     int size;
 public:
     MyLinkedList() {
-        this->head = nullptr;
+        this->head = this->tail = nullptr;
         this->size = 0;
     }
     
     int get(int index) {
         if(0>index or index>=this->size) return -1;
         Node *current = head;
-        while(index--){
-            current = current->next;
+        if(index>this->size/2){
+            current = tail;
+            index = this->size-index-1;
+            while(index--)
+                current = current->prev;
+        }else{
+            while(index--)
+                current = current->next;
         }
         return current->val;
     }
     
     void addAtHead(int val) {
         Node *newNode = new Node(val);
-        newNode->next = head;
-        head = newNode;
+        if(!head){
+            head = tail = newNode;
+        }else{
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
         this->size++;
     }
     
@@ -39,44 +51,74 @@ public:
             return;
         }
         Node *newNode = new Node(val);
-        Node *current = head;
-        while(current->next){
-            current = current->next;
-        }
-        current->next = newNode;
+        this->tail->next = newNode;
+        newNode->prev = this->tail;
+        this->tail = newNode;
         this->size++;
     }
     
     void addAtIndex(int index, int val) {
         if(index>this->size) return;
-        index --;
-        if(-1==index){
+        if(index==this->size){
+            addAtTail(val);
+            return;
+        }
+        if(-1==index-1){
             addAtHead(val);
             return;
         }
-        Node *current = this->head;
-        while(index--){
-            current = current->next;
-        }
         Node *newNode = new Node(val);
-        newNode->next = current->next;
-        current->next = newNode;
+        Node *current = this->head;
+        if(index>this->size/2){
+            current = tail;
+            index = this->size-index-1;
+            while(index--){
+                current = current->prev;
+            }
+        }else{
+            while(index--){
+                current = current->next;
+            }
+        }
+        newNode->prev = current->prev;
+        newNode->next = current;
+        current->prev = newNode;
+        newNode->prev->next = newNode;
         this->size++;
     }
     
     void deleteAtIndex(int index) {
         if(0>index or this->size<=index) return;
-        index--;
-        if(-1==index){
+        Node *current = head;
+        if(index>this->size/2){
+            current = tail;
+            index = this->size-index-1;
+            while(index--){
+                current = current->prev;
+            }
+        }else{
+            while(index--){
+                current = current->next;
+            }
+        }
+        if(head==current){
+            head = current->next;
+            if(!head) tail = head;
+            if(head)
+                head->prev = nullptr;
             this->size--;
-            head = head->next;
             return;
         }
-        Node *current = head;
-        while(index--){
-            current = current->next;
+        if(tail == current){
+            tail = current->prev;
+            if(!tail) head = tail;
+            if(tail)
+                tail->next = nullptr;
+            this->size--;
+            return;
         }
-        current->next = current->next->next;
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
         this->size--;
     }
 };
