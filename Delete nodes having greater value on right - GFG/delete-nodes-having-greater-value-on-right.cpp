@@ -45,28 +45,33 @@ struct Node
 */
 class Solution
 {
+    Node* reverseList(struct Node *head)
+    {
+        Node *_prev,*_current,*_next;
+        _next = _prev = NULL;
+        _current = head;
+        while(_current){
+            _next = _current->next;
+            _current->next = _prev;
+            _prev = _current;
+            _current = _next;
+        }
+        return _prev;
+    }
     public:
     Node *compute(Node *head)
     {
-        if(!head) return head;
-        Node *dummy = new Node(1001);
-        dummy->next = head;
-        stack<Node *> st;
-        st.push(dummy);
-        while(head){
-            while(head and !st.empty() and st.top()->data<head->data){
-                st.pop();
-            }
-            st.top()->next = head;
-            st.push(head);
-            head = head->next;
+        if(!head or !head->next) return head;
+        head = reverseList(head);
+        Node *current = head->next;
+        Node *prev = head;
+        while(current){
+            if(prev->data <= current->data)
+                prev = prev->next = current;
+            current = current->next;
         }
-        st.top()->next = NULL;
-        while(!st.empty()){
-            head = st.top()->next;
-            st.pop();
-        }
-        return head;
+        prev->next = NULL;
+        return reverseList(head);
     }
     
 };
