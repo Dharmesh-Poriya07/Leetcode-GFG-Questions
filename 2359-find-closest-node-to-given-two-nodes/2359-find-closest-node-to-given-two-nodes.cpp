@@ -6,7 +6,6 @@ private:
         q.push({src,0});
         dist[src] = 0;
         vector<int> vis(graph.size(),false);
-        // vis[src] = true;
         while(!q.empty()){
             auto curr = q.front();q.pop();
             vis[curr.first] = true;
@@ -14,6 +13,10 @@ private:
                 if(!vis[child]){
                     dist[child] = curr.second+1;
                     q.push({child,dist[child]});
+                }else{
+                    // this else condition not required for given question,
+                    // if we have nodes with more than one edge than this condition is required for finding smallest dstance.
+                    dist[child] = min(dist[child],curr.second+1);
                 }
             }
         }
