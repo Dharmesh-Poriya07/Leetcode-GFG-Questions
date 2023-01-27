@@ -12,8 +12,8 @@ class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         if(!head or !head->next or left==right) return head;
-        ListNode *newHead,*firsttail,*current,*subprev,*subnext,*subtail;
-        newHead = firsttail = subprev = subnext = subtail = nullptr;
+        ListNode *firsttail,*current,*subprev,*subnext,*subtail;
+        firsttail = subprev = subnext = subtail = nullptr;
         current = head;
         int nodes = right-left+1;
         left--;
@@ -33,12 +33,11 @@ public:
         }
         
         if(!firsttail){
-            newHead = subprev;
+            head = subprev;
         }else{
-            newHead = head;
             firsttail->next = subprev;
         }
         subtail->next = current;
-        return newHead;
+        return head;
     }
 };
