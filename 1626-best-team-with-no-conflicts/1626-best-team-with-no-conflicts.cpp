@@ -8,7 +8,7 @@ private:
         }
         if(-1!=dp[ind+1][prev+1]) return dp[ind+1][prev+1];
         int op1=-1,op2 = -1;
-        if(-1!=prev and ((pr[prev][0]==pr[ind][0] and pr[ind][1]>=pr[prev][1]) or (pr[ind][1]<=pr[prev][1])))
+        if(-1!=prev and ((pr[prev][0]==pr[ind][0]) or (pr[ind][1]<=pr[prev][1])))
             op1 = pr[ind][1] + helper(pr,ind+1,ind);
         op2 = helper(pr,ind+1,prev);
         return dp[ind+1][prev+1]  = max(op1,op2);
