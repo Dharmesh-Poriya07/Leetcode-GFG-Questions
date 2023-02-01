@@ -1,9 +1,9 @@
 class Solution {
     bool isValid(string &str,string &pattern){
-        if(0!=str.size()%pattern.size()) return false;
-        int i=0,j=0;
         int n = str.size();
         int m = pattern.size();
+        if(0!=n%m) return false;
+        int i=0,j=0;
         while(i<n and str[i]==pattern[j]){
             i++;
             j++;
@@ -24,11 +24,8 @@ class Solution {
 public:
     string gcdOfStrings(string str1, string str2) {
         string gcd;
-        if(str2.size()<=str1.size()){
-            gcd = solve(str2,str1);
-        }else{
-            gcd = solve(str1,str2);
-        }
+        if(str2.size()<=str1.size()) gcd = solve(str2,str1);
+        else gcd = solve(str1,str2);
         return gcd;
     }
 };
