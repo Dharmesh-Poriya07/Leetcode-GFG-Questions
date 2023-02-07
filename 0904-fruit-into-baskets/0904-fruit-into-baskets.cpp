@@ -3,7 +3,7 @@ public:
     int totalFruit(vector<int>& fruits) {
         int left,right;
         left = right = 0;
-        map<int,int> window;
+        unordered_map<int,int> window;
         int mxans = 0;
         while(right<fruits.size()){
             window[fruits[right]]++;
