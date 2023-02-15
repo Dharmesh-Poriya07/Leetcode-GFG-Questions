@@ -14,16 +14,13 @@ public:
         vector<vector<bool>> io(n,vector<bool>(m,false));
         vector<vector<bool>> as(n,vector<bool>(m,false));
         queue<pair<int,int>> q;
-        // vector<vector<bool>> vis(n,vector<bool>(m,false));
         for(int i=0;i<n;i++){
             io[i][0] = true;
             q.push({i,0});
-            // vis[i][0] = true;
         }
         for(int j=0;j<m;j++){
             io[0][j] = true;
             q.push({0,j});
-            // vis[0][j] = true;
         }
         
         vector<vector<int>> dir = {{-1,0},{0,1},{1,0},{0,-1}};
@@ -39,16 +36,13 @@ public:
                 }
             }
         }
-        // vis = vector<vector<bool>>(n,vector<bool>(m,false));
         for(int i=0;i<n;i++){
             as[i][m-1] = true;
             q.push({i,m-1});
-            // vis[i][m-1] = true;
         }
         for(int j=0;j<m;j++){
             as[n-1][j] = true;
             q.push({n-1,j});
-            // vis[n-1][j] = true;
         }
         
         while(!q.empty()){
