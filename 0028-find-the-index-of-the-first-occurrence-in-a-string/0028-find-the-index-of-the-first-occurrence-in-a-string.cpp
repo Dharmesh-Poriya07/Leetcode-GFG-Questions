@@ -10,12 +10,8 @@ public:
         while(i<n){
             if(haystack[i]==needle[j]) j++;
             else{
-                if(0!=j){
-                     i -= j;
-                    // i--;
-                }
-                j=0;  
-                
+                if(0!=j) i -= j;
+                j=0;
             } 
             i++;
             if(j==m){
