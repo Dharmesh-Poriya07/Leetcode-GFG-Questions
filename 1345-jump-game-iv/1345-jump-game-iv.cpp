@@ -1,50 +1,40 @@
 class Solution {
 public:
     int minJumps(vector<int>& arr) {
-        int n = arr.size();
-        if (n <= 1)
-            return 0;
-
-        unordered_map<int, vector<int>>allIdx;
-
-        for (int i = 0; i < arr.size(); i++) {
-            allIdx[arr[i]].push_back(i);
+        unordered_map<int,vector<int>> mp;
+        for(int i=0;i<arr.size();i++){
+            mp[arr[i]].push_back(i);
         }
-
-        vector<bool>vis(n, false);
-        queue<int>q;
+        
         int steps = 0;
-
+        vector<int> vis(arr.size()+1,false);
+        queue<int> q;
         q.push(0);
         vis[0] = true;
-
-        while(!q.empty()) {
+        while(!q.empty()){
             int sz = q.size();
-            while (sz--) {
-                int currIdx = q.front(); q.pop();
-
-                if (currIdx == n-1)
-                    return steps;
-
-                if (currIdx+1 < n && !vis[currIdx + 1]) {
-                    q.push(currIdx+1);
-                    vis[currIdx+1] = true;
+            while(sz--){
+                int current = q.front(); q.pop();
+                    
+                if(current==arr.size()-1) return steps;
+                if(current>0 && !vis[current-1]){
+                    q.push(current-1);
+                    vis[current-1] =  true;
                 }
-                if (currIdx-1 >= 0 && !vis[currIdx - 1]) {
-                    q.push(currIdx-1);
-                    vis[currIdx-1] = true;
+                if(current<arr.size() && !vis[current+1]){
+                    q.push(current+1);
+                    vis[current+1] =  true;
                 }
-                for (auto nextIdx : allIdx[arr[currIdx]]) {
-                    if (!vis[nextIdx]) {
-                        q.push(nextIdx);
-                        vis[nextIdx] = true;
+                for(int ind : mp[arr[current]]){
+                    if(!vis[ind]){
+                        q.push(ind);
+                        vis[ind] =  true;
                     }
                 }
-                allIdx[arr[currIdx]].clear();
+                mp[arr[current]].clear();
             }
-
             steps++;
         }
-        return -1;
+        return steps;
     }
 };
