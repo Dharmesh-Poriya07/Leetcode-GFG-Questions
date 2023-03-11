@@ -33,24 +33,23 @@ private:
         return prev;
     }
     TreeNode* binarySearch(ListNode *head){
-        if(!head){
-            return NULL;
-        }
+        if(!head) return NULL;
+        
         auto mid = getMiddle(head);
         
         TreeNode *root;
-        ListNode *temp;
+        ListNode *rightHead;
         if(mid){
             root = new TreeNode(mid->next->val);
-            temp = mid->next->next;
+            rightHead = mid->next->next;
             mid->next = nullptr;
         }else{
             root =  new TreeNode(head->val);
-            temp = head->next;
+            rightHead = head->next;
             head = nullptr;
         }
         root->left = binarySearch(head);
-        root->right = binarySearch(temp);
+        root->right = binarySearch(rightHead);
         return root;
     }
 public:
