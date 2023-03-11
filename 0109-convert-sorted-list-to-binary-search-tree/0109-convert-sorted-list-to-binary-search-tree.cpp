@@ -54,11 +54,6 @@ private:
     }
 public:
     TreeNode* sortedListToBST(ListNode* head) {
-        // vector<int> num;
-        // while(NULL!=head){
-        //     num.push_back(head->val);
-        //     head = head->next;
-        // }
         TreeNode *root = binarySearch(head);
         return root;
     }
