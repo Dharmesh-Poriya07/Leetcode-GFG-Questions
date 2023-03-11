@@ -21,25 +21,46 @@
  */
 class Solution {
 private:
-    TreeNode* binarySearch(vector<int> &num,long long int low,long long int high){
-        if(low>high){
+    ListNode *getMiddle(ListNode *head){
+        ListNode *slow,*fast,*prev;
+        slow = fast = head;
+        prev = nullptr;
+        while(fast and fast->next){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return prev;
+    }
+    TreeNode* binarySearch(ListNode *head){
+        if(!head){
             return NULL;
         }
-        int mid = low + (high-low)/2;
+        auto mid = getMiddle(head);
         
-        TreeNode *root = new TreeNode(num[mid]);
-        root->left = binarySearch(num,low,mid-1);
-        root->right = binarySearch(num,mid+1,high);
+        TreeNode *root;
+        ListNode *temp;
+        if(mid){
+            root = new TreeNode(mid->next->val);
+            temp = mid->next->next;
+            mid->next = nullptr;
+        }else{
+            root =  new TreeNode(head->val);
+            temp = head->next;
+            head = nullptr;
+        }
+        root->left = binarySearch(head);
+        root->right = binarySearch(temp);
         return root;
     }
 public:
     TreeNode* sortedListToBST(ListNode* head) {
-        vector<int> num;
-        while(NULL!=head){
-            num.push_back(head->val);
-            head = head->next;
-        }
-        TreeNode *root = binarySearch(num,0,num.size()-1);
+        // vector<int> num;
+        // while(NULL!=head){
+        //     num.push_back(head->val);
+        //     head = head->next;
+        // }
+        TreeNode *root = binarySearch(head);
         return root;
     }
 };
