@@ -1,44 +1,54 @@
+class TrieNode {
+    public:
+    vector<TrieNode *> children;
+    bool isWordEnd;
+    TrieNode(){
+        this->children = vector<TrieNode *>(26,nullptr);
+        this->isWordEnd = false;
+    }
+};
+
+
 class WordDictionary {
+private:
+    TrieNode *root;
 public:
-    vector<WordDictionary *> trie;
-    bool isEnd;
+    
     WordDictionary() {
-        this->trie = vector<WordDictionary *>(26,nullptr);
-        this->isEnd = false;
+        this->root = new TrieNode();
     }
     
     void addWord(string word) {
-        WordDictionary *current = this;
-        for(int i=0;i<word.size();i++){
-            char ch = word[i];
-            if(!current->trie[ch-'a']){
-                current->trie[ch-'a'] = new WordDictionary();
+        TrieNode *current = this->root;
+        for(char ch : word){
+            if(!current->children[ch-'a']){
+                current->children[ch-'a'] = new TrieNode();
             }
-            current = current->trie[ch-'a'];
+            current = current->children[ch-'a'];
         }
-        current->isEnd = true;
+        current->isWordEnd = true;
     }
-    bool dfs(WordDictionary *t,string &word,int ind){
-        if(!t) return false;
+    bool dfs(TrieNode *trie,string &word,int ind){
+        if(!trie) return false;
         if(ind==word.size()){
-            return t->isEnd;
+            return trie->isWordEnd;
         } 
         if('.'==word[ind]){
             for(int i=0;i<26;i++){
-                if(dfs(t->trie[i],word,ind+1)){
+                if(dfs(trie->children[i],word,ind+1)){
                     return true;
                 }
             }
         }else{
             int ch = word[ind]-'a';
-        if(t->trie[ch])
-            return dfs(t->trie[ch],word,ind+1);
+            if(trie->children[ch])
+                return dfs(trie->children[ch],word,ind+1);
         }
         
         return false;
     }
     bool search(string word) {
-        return dfs(this,word,0);
+        return dfs(this->root,word,0);
     }
 };
 
