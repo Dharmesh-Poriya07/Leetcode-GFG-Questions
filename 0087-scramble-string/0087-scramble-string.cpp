@@ -13,7 +13,7 @@ public:
         
         string key = a;
         
-        key += ' ' + b;
+        key += '#' + b;
         
         if(mp.find(key) != mp.end()) 
             return mp[key];
@@ -23,7 +23,7 @@ public:
            bool unswap = solve(a.substr(0,i), b.substr(0,i)) and solve(a.substr(i,n - i), b.substr(i,n - i));
            bool swap = solve(a.substr(0,i), b.substr(n - i,i)) and solve(a.substr(i), b.substr(0, n - i));
             
-           if(swap || unswap){
+           if(swap or unswap){
                check = true;
                break;
            }
