@@ -5,29 +5,23 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool bfs(vector<int> adj[],vector<bool> &vis,int src){
-        queue<pair<int,int>> q;
-        q.push({src,-1});
+    bool dfs(vector<int> adj[],vector<bool> &vis,int src,int parent){
+        
         vis[src] = true;
-        while(!q.empty()){
-            int u = q.front().first;
-            int parent = q.front().second;
-            q.pop();
-            for(int v : adj[u]){
-                if(!vis[v]){
-                    vis[v] = true;
-                    q.push({v,u});
-                }else if(parent!=v){
-                    return true;
-                }
+        for(int v : adj[src]){
+            if(!vis[v]){
+                if(dfs(adj,vis,v,src)) return true;
+            }else if(parent!=v){
+                return true;
             }
         }
+        
         return false;
     }
     bool isCycle(int V, vector<int> adj[]) {
         vector<bool> vis(V,false);
         for(int i=0;i<V;i++){
-            if(!vis[i] and bfs(adj,vis,i)){
+            if(!vis[i] and dfs(adj,vis,i,-1)){
                 return true;
             }
         }
