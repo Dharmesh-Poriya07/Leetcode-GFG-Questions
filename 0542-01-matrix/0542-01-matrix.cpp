@@ -13,7 +13,7 @@ public:
                 }
             }
         }
-        vector<vector<int>> dir = {{-1,0},{0,1},{1,0},{0,-1}};
+        vector<int> dir[] = {{-1,0},{0,1},{1,0},{0,-1}};
         while(!q.empty()){
             auto curr = q.front(); q.pop();
             ans[curr[0]][curr[1]] = curr[2];
