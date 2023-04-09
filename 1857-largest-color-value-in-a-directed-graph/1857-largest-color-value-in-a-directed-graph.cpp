@@ -3,14 +3,14 @@ public:
     int largestPathValue(string colors, vector<vector<int>>& edges) {
         int n = colors.size();
         vector<int> g[n];
-        unordered_map<int,int> indegree;
+        vector<int> indegree(n,0);
         for(auto e : edges){
             g[e[0]].push_back(e[1]);
             indegree[e[1]]++;
         }
         
         queue<int> q;
-        vector<vector<int>> dp(n+1,vector<int>(26,0));
+        vector<vector<int>> dp(n,vector<int>(26,0));
         int visited = 0, ans = 0;
         
         for(int i=0;i<n;i++){
