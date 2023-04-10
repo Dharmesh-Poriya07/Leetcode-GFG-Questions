@@ -5,25 +5,25 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool dfs(vector<int> adj[],int src, vector<bool> &vis, vector<bool> &pathVis){
-        pathVis[src] = vis[src] = true;
+    bool dfs(vector<int> adj[],int src, vector<int> &vis){
+        vis[src] = 2;
         for(int negh : adj[src]){
-            if(!vis[negh]){
-                if(dfs(adj,negh,vis,pathVis))
+            if(0==vis[negh]){
+                if(dfs(adj,negh,vis))
                     return true;
-            }else if(pathVis[negh]){
+            }else if(2==vis[negh]){
                 return true;
             }
         }
-        pathVis[src] = false;
+        vis[src] = 1;
         return false;
     }
     bool isCyclic(int V, vector<int> adj[]) {
-        vector<bool> vis(V,false),pathVis(V,false);
+        vector<int> vis(V,0);
         
         for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(dfs(adj,i,vis,pathVis))
+            if(0==vis[i]){
+                if(dfs(adj,i,vis))
                     return true;
             }
         }
