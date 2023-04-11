@@ -24,9 +24,8 @@ class Solution
 	       toposort.push_back(u);
 	       for(int v : adj[u]){
 	           indegree[v]--;
-	           if(0==indegree[v]){
+	           if(0==indegree[v])
 	               q.push(v);
-	           }
 	       }
 	   }
 	   return toposort;
