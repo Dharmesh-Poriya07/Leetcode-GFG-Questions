@@ -1,1 +1,2 @@
-​
+1. we have to find the cycle if graph contain cycle then all the nodes which are responsible or lead to cycle, those node are not safe nodes.
+2. for solve this problem using topological algorithm, then we have to reverse the edges and then apply topological sort algorithm (BFS), safe nodes are those which have indegree zero after applying toposort algo.
