@@ -15,10 +15,9 @@ public:
             if(p.size()==2 and p[0]=='.' and p[1]=='.'){
                 if(!st.empty())
                     st.pop_back();
-            }else{
-                if(1<p.size() or (1==p.size() and '.'!=p[0]))
+            }else if(1<p.size() or (1==p.size() and '.'!=p[0]))
                     st.push_back(p);
-            }
+            
         }
         
         string canonical = st.empty()?"/":"";
