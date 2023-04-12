@@ -4,6 +4,7 @@ public:
         int n = graph.size();
         vector<int> adj[n];
         vector<int> ind(n,0), safeNodes;
+        // reverse the edges and then apply topological sort 
         for(int u=0;u<n;u++){
             for(auto v : graph[u]){
                 adj[v].push_back(u);
