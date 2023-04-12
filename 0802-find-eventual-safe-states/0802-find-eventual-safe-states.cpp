@@ -1,40 +1,34 @@
 class Solution {
 public:
-    bool dfs(vector<int> adj[],int src, vector<bool> &vis, vector<bool> &pathVis, vector<bool> &ans){
-        pathVis[src] = vis[src] = true;
-        for(int negh : adj[src]){
-            if(!vis[negh]){
-                if(dfs(adj,negh,vis,pathVis,ans))
-                    return true;
-            }else if(pathVis[negh]){
-                return true;
-            }
-        }
-        ans[src] = true;
-        pathVis[src] = false;
-        return false;
-    }
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> adj[n];
+        vector<int> ind(n,0), safeNodes;
         for(int u=0;u<n;u++){
-            for(int v : graph[u]){
-                adj[u].push_back(v);
+            for(auto v : graph[u]){
+                adj[v].push_back(u);
+                ind[u]++;
             }
         }
         
-        vector<bool> vis(n,false),pathVis(n,false),ans(n,false);
-        
+        queue<int> q;
         for(int i=0;i<n;i++){
-            if(!vis[i]){
-                dfs(adj,i,vis,pathVis,ans);
+            if(0==ind[i])
+                q.push(i);
+        }
+        
+        while(!q.empty()){
+            auto u = q.front(); q.pop();
+            safeNodes.push_back(u);
+            
+            for(int v : adj[u]){
+                ind[v]--;
+                if(ind[v]==0)
+                    q.push(v);
             }
         }
-        vector<int> safeNodes;
-        for(int i=0;i<n;i++){
-            if(ans[i])
-                safeNodes.push_back(i);
-        }
+        
+        sort(safeNodes.begin(),safeNodes.end());
         return safeNodes;
     }
 };
