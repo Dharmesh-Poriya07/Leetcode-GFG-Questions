@@ -13,6 +13,7 @@ class Solution {
         int selected = 0;
         
         if(selected_members+group[index] <= n){
+            // curr_profit at most 101, just we need to verify it should be greater than minProfit
             selected = solve(index+1,selected_members+group[index],min(minProfit,profit[index]+curr_profit),n,minProfit,group,profit);
         }
         
