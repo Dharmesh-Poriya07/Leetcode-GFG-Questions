@@ -1,11 +1,12 @@
 class SmallestInfiniteSet {
     priority_queue<int,vector<int>,greater<int>> pq;
-    unordered_map<int,int> isPresent;
+    vector<int> isPresent;
 public:
     SmallestInfiniteSet() {
+        isPresent.push_back(0);
         for(int i=1;i<=1000;i++){
             pq.push(i);
-            isPresent[i]++;
+            isPresent.push_back(1);
         }
     }
     
