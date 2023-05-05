@@ -18,6 +18,7 @@ public:
                     if(s.find(word) != s.end()){
                         s.erase(word);
                         q.push({word,steps+1});
+                        if(word == endWord) return steps+1;
                     }
                 }
                 word[i] = c;
