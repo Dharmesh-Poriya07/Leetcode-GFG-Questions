@@ -1,1 +1,1 @@
-​
+## we are using 0th row as row vector and 0th column as column vector for keep tracking of zeros.
