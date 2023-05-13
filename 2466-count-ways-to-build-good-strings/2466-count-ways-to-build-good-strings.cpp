@@ -1,7 +1,7 @@
 class Solution {
     int mod = 1e9+7;
     vector<int> dp;
-    int solve(int curr,int low,int high,int zero,int one){
+    int solve(int curr,int &low,int &high,int &zero,int &one){
         if(curr >= high) return 0;
         
         if(-1 != dp[curr]) return dp[curr];
