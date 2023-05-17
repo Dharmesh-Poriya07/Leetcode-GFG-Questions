@@ -15,36 +15,26 @@ public:
         ListNode *l3 = nullptr;
         
         int carry = 0;
-        while(l1 and l2){
-            int d = l1->val+l2->val+carry;
+        while(l1 or l2){
+            int d = carry;
+            if(l1){
+                d += l1->val;
+                l1 = l1->next;
+            }
+            
+            if(l2){
+                d += l2->val;
+                l2 = l2->next;
+            }
+            
             carry = d/10;
-            d = d%10;
+            d %= 10;
             ListNode *temp = new ListNode(d);
             if(nullptr==l3) l3 = temp;
             else current->next = temp;
             current = temp;
-            l1 = l1->next;
-            l2 = l2->next;
         }
         
-        while(l1){
-            int d = l1->val + carry;
-            carry = d/10;
-            d = d%10;
-            ListNode *temp = new ListNode(d);
-            current->next = temp;
-            current = temp;
-            l1 = l1->next;
-        }
-        while(l2){
-            int d = l2->val + carry;
-            carry = d/10;
-            d = d%10;
-            ListNode *temp = new ListNode(d);
-            current->next = temp;
-            current = temp;
-            l2 = l2->next;
-        }
         if(0!=carry){
             ListNode *temp = new ListNode(carry);
             current->next = temp;
