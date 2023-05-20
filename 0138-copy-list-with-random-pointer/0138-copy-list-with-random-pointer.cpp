@@ -17,20 +17,36 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        unordered_map<Node *, Node *> ump;
-        Node *curr = head;
-        // ump[nullptr] = nullptr;
-        while(curr){
-            ump.insert({curr,new Node(curr->val)});
-            curr = curr->next;
+        if(!head) return head;
+        
+        // first step : create copy of each node and put it to right side        
+        Node *itr = head;
+        
+        while(itr){
+            Node *copy = new Node(itr->val);
+            copy->next = itr->next;
+            itr->next = copy;
+            itr = copy->next;
         }
         
-        curr = head;
-        while(curr){
-            ump[curr]->next = ump[curr->next];
-            ump[curr]->random = ump[curr->random];
-            curr = curr->next;
+        // second step : now assign random pointer to newly created copy node
+        itr = head;
+        while(itr){
+            if(itr->random) itr->next->random = itr->random->next;
+            else itr->next->random = nullptr;
+            itr = itr->next->next;
         }
-        return ump[head];
+        
+        // third step : now diffrentiat old list and new list
+        itr = head;
+        Node *dummy = new Node(0);
+        Node *clone = dummy;
+        while(itr){
+            clone->next = itr->next;
+            itr->next = clone->next->next;
+            clone = clone->next;
+            itr = itr->next;
+        }
+        return dummy->next;
     }
 };
