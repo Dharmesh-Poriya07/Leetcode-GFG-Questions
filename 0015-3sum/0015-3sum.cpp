@@ -1,29 +1,28 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin() , nums.end()); 
-
-        if(nums.size() < 3) return {};
+        vector<vector<int>> ans;
         
-        if(nums[0] > 0) return {};
+        sort(nums.begin(),nums.end());
         
-        unordered_map<int , int> hmp;
-        for(int i = 0 ; i < nums.size() ; ++i) hmp[nums[i]] = i;
-        
-        vector<vector<int>> answer;
-        for(int i = 0 ; i < nums.size() - 2 ; ++i){
-            if(nums[i] > 0)
-                break;
-            
-            for(int j = i + 1 ; j < nums.size() - 1 ; ++j){     
-                int required = -1*(nums[i] + nums[j]);    
-                if(hmp.count(required) && hmp.find(required)->second > j)
-                    answer.push_back({nums[i] , nums[j] , required});
+        for(int i=0;i<nums.size()-2;i++){
+            if(0==i or (0<i and nums[i]!=nums[i-1])){
+                int low = i+1, high = nums.size()-1, target = 0-nums[i];
                 
-                j = hmp[nums[j]]; 
+                while(low<high){
+                    int sum = nums[low]+nums[high];
+                    if(sum == target){
+                        ans.push_back({nums[i],nums[low],nums[high]});
+                        
+                        while(low<high and nums[low]==nums[low+1]) low++;
+                        while(low<high and nums[high]==nums[high-1]) high--;
+                        low ++;
+                        high --;
+                    }else if(sum < target) low ++;
+                    else high --;
+                }
             }
-            i = hmp[nums[i]];     
         }
-        return answer; 
+        return ans;
     }
 };
