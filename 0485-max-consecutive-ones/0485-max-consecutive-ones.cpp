@@ -3,15 +3,11 @@ public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
         int n = nums.size();
         int mx = 0;
+        int cnt = 0;
         for(int i=0;i<n;i++){
-            int cnt = 0;
-            if(1==nums[i]){
-                while(i<n and 1==nums[i]){
-                    cnt ++;
-                    i++;
-                }
-                mx = max(cnt,mx);
-            }
+            if(nums[i]) cnt += nums[i];
+            else cnt = 0;
+            mx = max(mx,cnt);
         }
         return mx;
     }
