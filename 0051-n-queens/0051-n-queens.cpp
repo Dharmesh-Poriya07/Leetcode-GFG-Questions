@@ -1,32 +1,21 @@
 class Solution {
 private:
     vector<vector<string>> ans;
-    bool isValid(vector<string> &temp,int r,int c){
+    void nQueen(int row,vector<string> &temp, vector<bool> &cols, vector<bool> &rightd, vector<bool> &leftd){
         int n = temp.size();
-        for(int i=r-1,j=c-1;i>=0 and j>=0;i--,j--){
-            if('Q'==temp[i][j])
-                return false;
-        }
-        for(int i=r-1,j=c+1;i>=0 and j<n;i--,j++){
-            if('Q'==temp[i][j])
-                return false;
-        }
-        for(int i=r-1;i>=0;i--){
-            if('Q'==temp[i][c])
-                return false;
-        }
-        return true;
-    }
-    void nQueen(int row,vector<string> &temp){
-        if(row == temp.size()){
+        if(row == n){
             ans.push_back(temp);
             return;
         } 
 
-        for(int j=0;j<temp.size();j++){
-            if(isValid(temp,row,j)){
+        for(int j=0;j<n;j++){
+            if(!cols[j] and !rightd[row+j] and !leftd[n-1+row-j]){
                 temp[row][j] = 'Q';
-                nQueen(row+1,temp);
+
+                cols[j] = rightd[row+j] = leftd[n-1+row-j] = true;
+                nQueen(row+1,temp,cols,rightd,leftd);
+                cols[j] = rightd[row+j] = leftd[n-1+row-j] = false;
+
                 temp[row][j] = '.';
             }
         }
@@ -34,7 +23,8 @@ private:
 public:
     vector<vector<string>> solveNQueens(int n) {
         vector<string> temp(n,string(n,'.'));
-        nQueen(0,temp);
+        vector<bool> cols(n,false), rightd(2*n-1,false), leftd(2*n-1,false);
+        nQueen(0,temp,cols,rightd,leftd);
         return ans;
     }
 };
