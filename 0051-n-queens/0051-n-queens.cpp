@@ -24,11 +24,11 @@ private:
         } 
 
         for(int j=0;j<temp.size();j++){
-            temp[row][j] = 'Q';
             if(isValid(temp,row,j)){
+                temp[row][j] = 'Q';
                 nQueen(row+1,temp);
+                temp[row][j] = '.';
             }
-            temp[row][j] = '.';
         }
     }
 public:
