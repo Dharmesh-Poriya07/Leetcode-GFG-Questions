@@ -1,51 +1,44 @@
 class MedianFinder {
-private:
-    priority_queue<int> mxHeap;
-    priority_queue<int,vector<int>,greater<int>> mnHeap;
-    
+    priority_queue<int> left;
+    priority_queue <int, vector<int>, greater<int>> right;
+    int size;
 public:
     MedianFinder() {
-        
+        this->size = 0;
     }
     
     void addNum(int num) {
-        int mxsz = mxHeap.size();
-        int mnsz = mnHeap.size();
-        
-        if(0==mxsz){
-            mxHeap.push(num);
-        }else if(mxsz==mnsz){
-            if(mnHeap.top()<num){
-                int temp = mnHeap.top();
-                mnHeap.pop();
-                mxHeap.push(temp);
-                mnHeap.push(num);
-            }else{
-                mxHeap.push(num);
+        int lsz = left.size();
+        int rsz = right.size();
+        this->size++;
+        if(lsz==rsz){
+            if(lsz==0){
+                left.push(num);
+                return;
             }
-        }else if(mxsz>mnsz){
-            if(mxHeap.top()>num){
-                int temp = mxHeap.top();
-                mxHeap.pop();
-                mxHeap.push(num);
-                mnHeap.push(temp);
+            if(right.top()>=num){
+                left.push(num);
             }else{
-                mnHeap.push(num);
+                left.push(right.top());
+                right.pop();
+                right.push(num);
+            }
+        }else{
+            if(left.top()<=num){
+                right.push(num);
+            }else{
+                right.push(left.top());
+                left.pop();
+                left.push(num);
             }
         }
     }
     
     double findMedian() {
-        
-        int sz = mnHeap.size()+mxHeap.size();
-        if(0==sz%2){
-            int n1 = mxHeap.top();
-            int n11 = mnHeap.top();
-            double ans = (n1+n11)/2.0;
-            return ans;
+        if(this->size%2){
+            return left.top();
         }
-        return mxHeap.top();
-        
+        return (left.top()+right.top())/2.0;
     }
 };
 
