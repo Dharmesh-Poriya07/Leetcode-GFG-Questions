@@ -26,7 +26,7 @@ public:
     }
     
     int get(int key) {
-        if(ump.find(key)==ump.end()) return -1;
+        if(!ump[key]) return -1;
 
         auto curr = ump[key];
         curr->prev->next = curr->next;
@@ -41,7 +41,7 @@ public:
     
     void put(int key, int value) {
         // key already exist
-        if(ump.find(key)!=ump.end()){
+        if(ump[key]){
             auto curr = ump[key];
             curr->val = value;
 
@@ -58,18 +58,12 @@ public:
         // capacity full
         if(curr_cap == capacity){
             auto removed = ump[tail->prev->key];
-            ump.erase(removed->key); // removing least reently used node
+            ump[removed->key] = nullptr; // removing least reently used node
 
             removed->prev->next = tail;
             tail->prev = removed->prev;
-
-            DLL *newnode = new DLL(key,value);
-            ump[key] = newnode;
-            newnode->prev = head;
-            newnode->next = head->next;
-            head->next->prev = newnode;
-            head->next = newnode;
-            return;
+        }else{
+            curr_cap++;
         }
 
         // adding newnode
@@ -79,7 +73,7 @@ public:
         newnode->next = head->next;
         head->next->prev = newnode;
         head->next = newnode;
-        curr_cap++;
+        
         return;
     }
 };
