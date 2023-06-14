@@ -28,6 +28,19 @@ select if((select count(*) from cte)<=1,null,(select salary from cte order by sa
 */
 
 # solution-3
+/*
 select max(salary) as SecondHighestSalary
 from employee
 where salary < (select max(salary) from employee)
+*/
+
+# solution-4
+select ifnull(
+  (
+    select distinct salary
+    from employee
+    order by salary desc
+    limit 1,1
+  )
+  ,null
+) as SecondHighestSalary
