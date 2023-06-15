@@ -1,14 +1,13 @@
 class Solution {
-    int mod = 1000000;
-    int prime = 43;
+    int mod = 10000007;
+    int prime = 31;
     int rabinKarp(string source,string pattern){
         if(""==source or ""==pattern or source.size()<pattern.size()) return -1;
         if(source==pattern) return 0;
         int n = source.size(), m = pattern.size();
         int power = 1;
         for(int i=0;i<m-1;i++){
-            power *= prime;
-            power %= mod;
+            power = ((power%mod)*prime)%mod;
         }
 
         int pattern_code = 0;
