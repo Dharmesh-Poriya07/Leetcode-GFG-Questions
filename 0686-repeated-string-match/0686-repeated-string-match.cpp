@@ -1,6 +1,6 @@
 class Solution {
     int mod = 1000000;
-    int prime = 31;
+    int prime = 43;
     int rabinKarp(string source,string pattern){
         if(""==source or ""==pattern or source.size()<pattern.size()) return -1;
         if(source==pattern) return 0;
