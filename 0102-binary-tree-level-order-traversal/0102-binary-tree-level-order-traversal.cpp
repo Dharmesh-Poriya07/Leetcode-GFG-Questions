@@ -10,23 +10,20 @@
  * };
  */
 class Solution {
+    map<int,vector<int>> levels;
+    void dfs(TreeNode *root,int level){
+        if(!root) return;
+
+        levels[level].push_back(root->val);
+        dfs(root->left,level+1);
+        dfs(root->right,level+1);
+    }
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> lot; // level order traversal
-        queue<TreeNode *> q;
-        if(nullptr!=root)
-            q.push(root);
-        while(!q.empty()){
-            int size = q.size();
-            lot.push_back({});
-            while(size--){
-                TreeNode *current = q.front();
-                q.pop();
-                lot.back().push_back(current->val);
-                if(nullptr!=current->left) q.push(current->left);
-                if(nullptr!=current->right) q.push(current->right);
-            }
-        }
-        return lot;
+        dfs(root,0);
+        vector<vector<int>> ans;
+        for(auto [key,val] : levels)
+            ans.push_back(val);
+        return ans;
     }
 };
