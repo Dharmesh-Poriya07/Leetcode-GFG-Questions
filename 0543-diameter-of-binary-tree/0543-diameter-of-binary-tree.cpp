@@ -10,21 +10,19 @@
  * };
  */
 class Solution {
-private:
-    int dia;
-int height(TreeNode *root){
-    if(root == NULL){
-        return 0;
+    int mxdia = 0;
+    int solve(TreeNode *root){
+        if(!root) return 0;
+        int dia = 0;
+        int left = solve(root->left);
+        int right = solve(root->right);
+        dia = 1+max(left,right);
+        mxdia = max(mxdia,max(dia,left+right+1));
+        return dia;
     }
-    int left_h = height(root->left);
-    int right_h = height(root->right);
-    dia = max(dia,left_h+right_h);
-    return (max(left_h,right_h)+1);
-}
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        dia = INT_MIN;
-        height(root);
-        return dia;
+        solve(root);
+        return mxdia-1;
     }
 };
