@@ -10,23 +10,25 @@
  * };
  */
 class Solution {
-private:
-    int preIndex;
-    unordered_map<int,int> elements;
-    TreeNode *treeFromPreAndIn(vector<int>& preorder, vector<int>& inorder,int istart,int iend){
-        if(istart > iend) return nullptr;
-        
-        TreeNode *root = new TreeNode(preorder[preIndex++]);
-        int inindex = elements[preorder[preIndex-1]];
-        root->left = treeFromPreAndIn(preorder,inorder,istart,inindex-1);
-        root->right = treeFromPreAndIn(preorder,inorder,inindex+1,iend);
+public:
+    int ind;
+    TreeNode *tree(vector<int>& pre, vector<int>& in, int left,int right){
+        if(left>right) return nullptr;
+
+        TreeNode *root = new TreeNode(pre[ind++]);
+        int cind = -1;
+        for(int i=left;i<=right;i++){
+            if(pre[ind-1]==in[i]){
+                cind = i;
+                break;
+            }
+        }
+        root->left = tree(pre,in,left,cind-1);
+        root->right = tree(pre,in,cind+1,right);
         return root;
     }
-public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        preIndex = 0;
-        for(int i=0;i<inorder.size();i++)
-           elements[inorder[i]] = i;
-        return treeFromPreAndIn(preorder,inorder,0,inorder.size()-1);
+        ind = 0;
+        return tree(preorder,inorder,0,inorder.size()-1);
     }
 };
