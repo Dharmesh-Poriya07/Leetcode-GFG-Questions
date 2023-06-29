@@ -9,74 +9,66 @@
  */
 class Codec {
 public:
-    string tree2str(TreeNode* root) {
-        if(nullptr==root)
-            return "";
-        string ans = "",left="",right="";
-        ans = to_string(root->val);
-        
-        if(nullptr!=root->left){
-            left.push_back('(');
-            for(char ch : tree2str(root->left)) left.push_back(ch);
-            left.push_back(')');
-        }else if(nullptr!=root->right){
-            left.push_back('(');
-            left.push_back(')');
-        }
-        
-        if(nullptr!=root->right){
-            right.push_back('(');
-            for(char ch : tree2str(root->right)) right.push_back(ch);
-            right.push_back(')');
-        }
-        
-        return ans+left+right;
-    }
+
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        return tree2str(root);
+        string treenodes = "";
+        queue<TreeNode *> q;
+        if(root) q.push(root);
+
+        while(!q.empty()){
+            auto curr = q.front(); q.pop();
+
+            if(curr){
+                treenodes.append(to_string(curr->val)+",");
+            }else{
+                treenodes.push_back('#');
+                treenodes.push_back(',');
+            }
+            if(curr){
+                q.push(curr->left);
+                q.push(curr->right);
+            }
+        }
+        cout<<treenodes<<endl;
+        return treenodes;
     }
-    
-    vector<int> getNumber(string &s,int ind){
-        bool ngve = false;
-        if('-'==s[ind]){
-            ngve = true;
+    string getValue(string &data,int &ind){
+        string val = "";
+        while(ind<data.size() and data[ind]!=','){
+            val.push_back(data[ind]);
             ind++;
         }
-        int num = 0;
-        while(ind<s.size() and '(' != s[ind] and ')'!=s[ind]){
-            num *= 10;
-            num += (s[ind]-'0');
-            ind++;
-        }
-        if(ngve){
-            num *= -1;
-        }
-        return {num,ind};
-    }
-    pair<string,int> sub(string &s,int ind){
-        string stree = "";
-        int count = 1;
         ind++;
-        while(ind<s.size() and 0!=count){
-            if(')' == s[ind]) count--;
-            else if('('==s[ind]) count++;
-            stree.push_back(s[ind]);
-            ind++;
-        }
-        if(stree.size()>0)
-            stree.pop_back();
-        return {stree,ind};
+        return val;
     }
     // Decodes your encoded data to tree.
-    TreeNode* deserialize(string data,int ind=0) {
-        if(data == "" or ind>=data.size()) return nullptr;
-        auto root_data = getNumber(data,ind);
-        TreeNode *root = new TreeNode(root_data[0]);
-        auto leftsub = sub(data,root_data[1]);
-        root->left = deserialize(leftsub.first);
-        auto rightsub = sub(data,leftsub.second);
-        root->right = deserialize(rightsub.first);
+    TreeNode* deserialize(string data) {
+        if(data.size()==0) return nullptr;
+
+        queue<TreeNode *> q;
+        int index = 0;
+        TreeNode *root = new TreeNode(stoi(getValue(data,index)));
+        q.push(root);
+        while(!q.empty()){
+            auto curr = q.front(); q.pop();
+
+            string val = getValue(data,index);
+            if("#"==val){
+                curr->left = nullptr;
+            }else{
+                curr->left = new TreeNode(stoi(val));
+                q.push(curr->left);
+            }
+
+            val = getValue(data,index);
+            if("#"==val){
+                curr->right = nullptr;
+            }else{
+                curr->right = new TreeNode(stoi(val));
+                q.push(curr->right);
+            }
+        }
         return root;
     }
 };
