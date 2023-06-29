@@ -8,30 +8,31 @@ public:
     }
     
     void addNum(int num) {
-        int lsz = left.size();
-        int rsz = right.size();
-        this->size++;
-        if(lsz==rsz){
-            if(lsz==0){
+        if(this->size==0){
+            left.push(num);
+            this->size++;
+            return;
+        }
+        if(1&this->size){
+            if(left.top()>num){
+                right.push(left.top());
+                left.pop();
                 left.push(num);
-                return;
+            }else{
+                right.push(num);
             }
-            if(right.top()>=num){
+        }else{
+            if(right.top()>num){
                 left.push(num);
             }else{
                 left.push(right.top());
                 right.pop();
                 right.push(num);
             }
-        }else{
-            if(left.top()<=num){
-                right.push(num);
-            }else{
-                right.push(left.top());
-                left.pop();
-                left.push(num);
-            }
         }
+        
+        this->size++;
+        
     }
     
     double findMedian() {
