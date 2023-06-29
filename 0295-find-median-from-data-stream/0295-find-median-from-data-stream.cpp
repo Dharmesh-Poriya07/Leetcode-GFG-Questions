@@ -7,32 +7,23 @@ public:
         this->size = 0;
     }
     
-    void addNum(int num) {
-        if(this->size==0){
-            left.push(num);
-            this->size++;
-            return;
-        }
+    void balanceHeaps(){
         if(1&this->size){
-            if(left.top()>num){
+            left.push(right.top());
+            right.pop();
+        }else{
+            if(left.top()>right.top()){
                 right.push(left.top());
                 left.pop();
-                left.push(num);
-            }else{
-                right.push(num);
-            }
-        }else{
-            if(right.top()>num){
-                left.push(num);
-            }else{
                 left.push(right.top());
                 right.pop();
-                right.push(num);
             }
         }
-        
+    }
+    void addNum(int num) {
+        right.push(num);        
         this->size++;
-        
+        balanceHeaps();
     }
     
     double findMedian() {
