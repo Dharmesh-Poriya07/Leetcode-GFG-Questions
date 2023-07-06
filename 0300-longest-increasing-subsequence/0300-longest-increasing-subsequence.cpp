@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> dp;
+    int dp[2501][2502];
     int solve(vector<int> &nums,int ind,int prev){
         if(ind==nums.size()) return 0;
         if(-1!=dp[ind][prev+1]) return dp[ind][prev+1];
@@ -14,8 +14,7 @@ public:
         return dp[ind][prev+1] = max(taken,nottaken);
     }
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size();
-        dp = vector<vector<int>>(n,vector<int>(n+1,-1));
+        memset(dp,-1,sizeof(dp));
         return solve(nums,0,-1);
     }
 };
