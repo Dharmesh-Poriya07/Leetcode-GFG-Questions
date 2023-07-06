@@ -1,20 +1,17 @@
 class Solution {
 public:
-    int dp[2501][2502];
-    int solve(vector<int> &nums,int ind,int prev){
-        if(ind==nums.size()) return 0;
-        if(-1!=dp[ind][prev+1]) return dp[ind][prev+1];
-
-        int taken=0,nottaken=0;
-        if(prev==-1 or nums[ind]>nums[prev]){
-            taken = 1+solve(nums,ind+1,ind);
+    int lengthOfLIS(vector<int>& a) {
+        int n = a.size();
+        vector<int> temp;
+        temp.push_back(a[0]);
+        for(int i=1;i<n;i++){
+            if(a[i]>temp.back()){
+                temp.push_back(a[i]);
+            }else{
+                int ind = lower_bound(temp.begin(),temp.end(),a[i])- temp.begin();
+                temp[ind] = a[i];
+            }
         }
-        nottaken = solve(nums,ind+1,prev);
-        
-        return dp[ind][prev+1] = max(taken,nottaken);
-    }
-    int lengthOfLIS(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
-        return solve(nums,0,-1);
+        return temp.size();
     }
 };
