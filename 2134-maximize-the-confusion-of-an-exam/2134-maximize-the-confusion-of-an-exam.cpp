@@ -2,31 +2,21 @@ class Solution {
 public:
     int solve(string &answerKey,int k, char convert){
         int n = answerKey.size();
-        int mxc = 0,used=0, i=0, j=0;
+        int mxc = 0,flips=0, i=0, j=0;
         while(j<n){
-            while(j<n){
-                if(answerKey[j]==convert) j++;
-                else if(used<k){
-                    used++;
-                    j++;
-                }else break;
+            if(answerKey[j]==convert) flips++;
+            while(i<j and flips>k){
+                flips = answerKey[i]==convert ? flips-1 : flips;
+                i++;
             }
+            j++;
             mxc = max(mxc,j-i);
-            if(used==k){
-                while(i<j and used>=k){
-                    if(answerKey[i]==convert) i++;
-                    else{
-                        used--;
-                        i++;
-                    }
-                }
-            }
         }
         return mxc;
     }
     int maxConsecutiveAnswers(string answerKey, int k) {
-        int t = solve(answerKey,k,'T');
-        int f = solve(answerKey,k,'F');
+        int t = solve(answerKey,k,'F'); // converting F in to T
+        int f = solve(answerKey,k,'T'); // converting T in to F
         
         return max(t,f);
     }
