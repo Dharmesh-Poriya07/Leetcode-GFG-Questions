@@ -1,41 +1,62 @@
+class Node {
+    private:
+    Node *keys[26];
+    bool flag;
+
+    public:
+    bool isContainsKey(char ch){
+        return keys[ch-'a']!=nullptr;
+    }
+    void putKey(char ch){
+        keys[ch-'a'] = new Node();
+    }
+    Node *moveNext(char ch){
+        return keys[ch-'a'];
+    }
+    void setFlag(){
+        flag = true;
+    }
+    bool getFlag(){
+        return flag;
+    }
+};
 class Trie {
+private:
+    Node *root;
 public:
-    vector<Trie *> trie;
-    bool isEnding;
     Trie() {
-        this->trie = vector<Trie *>(26,nullptr);
-        this->isEnding = false;
+        root = new Node();
     }
     
     void insert(string word) {
-        Trie *current = this;
-        for(int i=0;i<word.size();i++){
-            char ch = word[i];
-            if(!current->trie[ch-'a'])
-                current->trie[ch-'a'] = new Trie();
-            current = current->trie[ch-'a'];
+        Node *node = root;
+        for(char ch : word){
+            if(!node->isContainsKey(ch)){
+                node->putKey(ch);
+            }
+            node = node->moveNext(ch);
         }
-        current->isEnding = true;
+        node->setFlag();
     }
     
     bool search(string word) {
-        Trie *current = this;
-        for(int i=0;i<word.size();i++){
-            char ch = word[i];
-            if(!current->trie[ch-'a'])
+        Node *node = root;
+        for(char ch : word){
+            if(!node->isContainsKey(ch)){
                 return false;
-            current = current->trie[ch-'a'];
+            }
+            node = node->moveNext(ch);
         }
-        return current->isEnding;
+        return node->getFlag();
     }
     
     bool startsWith(string prefix) {
-        Trie *current = this;
-        for(int i=0;i<prefix.size();i++){
-            char ch = prefix[i];
-            if(!current->trie[ch-'a'])
+        Node *node = root;
+        for(char ch : prefix){
+            if(!node->isContainsKey(ch)){
                 return false;
-            current = current->trie[ch-'a'];
+            }
+            node = node->moveNext(ch);
         }
         return true;
     }
