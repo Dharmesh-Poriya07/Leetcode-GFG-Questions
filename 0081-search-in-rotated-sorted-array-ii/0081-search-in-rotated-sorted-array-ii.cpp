@@ -1,23 +1,33 @@
 class Solution {
 public:
-    void reverseArr(vector<int> &nums,int left,int right){
-        while(left<=right){
-            swap(nums[left],nums[right]);
-            left ++;
-            right --;
-        }
-    }
     bool search(vector<int>& nums, int target) {
-        int pivot = -1, n = nums.size();
-        for(int i=1;i<n;i++){
-            if(nums[i]<nums[i-1]){
-                pivot = i-1;
-                break;
+        int low = 0;
+        int high = nums.size()-1;
+
+        while(low<=high){
+            int mid = (low+high) >> 1;
+            if(target == nums[mid]) return true;
+
+            if(nums[low]==nums[mid] and nums[high]==nums[mid]){
+                low ++;
+                high --;
+                continue;
+            }
+
+            if(nums[low] <= nums[mid]){
+                if(target>=nums[low] and target<=nums[mid]){
+                    high = mid-1;
+                }else{
+                    low = mid+1;
+                }
+            }else{
+                if(target>=nums[mid] and target<=nums[high]){
+                    low = mid+1;
+                }else{
+                    high = mid-1;
+                }
             }
         }
-        reverseArr(nums,0,pivot);
-        reverseArr(nums,pivot+1,n-1);
-        reverseArr(nums,0,n-1);
-        return binary_search(nums.begin(),nums.end(),target);
+        return false;
     }
 };
