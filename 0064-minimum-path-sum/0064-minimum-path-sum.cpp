@@ -4,7 +4,7 @@ public:
     int solve(vector<vector<int>>& grid,int r,int c){
         int n = grid.size(), m=grid[0].size();
         if(r==n-1 and c==m-1) return grid[r][c];
-        if(r<0 or c<0 or r>=n or c>=m) return INT_MAX;
+        if(r>=n or c>=m) return INT_MAX;
 
         if(-1 != dp[r][c]) return dp[r][c];
 
